@@ -1,0 +1,12 @@
+.env
+
+# pipeline outputs
+tmdb_monthly_parts/
+tmdb_movies_full25.csv
+tmdb_movies_full25.parquet
+tmdb_monthly_checkpoint.json
+tmdb_monthly_checkpoint.json.tmp
+
+# python
+__pycache__/
+*.pyc
