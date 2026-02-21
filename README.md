@@ -2,15 +2,13 @@
 
 TMDB API'sinden film verisi çeken, aylık partisyonlama ve checkpoint desteğiyle çalışan Python pipeline.
 
-## Gereksinimler
+## Kurulum
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Kurulum
-
-1. `.env` dosyası oluştur:
+`.env` dosyası oluştur:
 
 ```
 TMDB_BEARER=<v4_read_access_token>
@@ -18,16 +16,10 @@ TMDB_BEARER=<v4_read_access_token>
 
 TMDB v4 Bearer token için: [TMDB API Settings](https://www.themoviedb.org/settings/api)
 
-2. Pipeline'ı çalıştır:
+## Kullanım
 
 ```bash
 python src/movie.py --from 2021-01-01 --to 2023-12-31
-```
-
-## Kullanım
-
-```
-python src/movie.py [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--lang dil] [--min-votes N] [--max-pages N]
 ```
 
 | Argüman | Varsayılan | Açıklama |
@@ -37,17 +29,31 @@ python src/movie.py [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--lang dil] [--min-vo
 | `--lang` | `en-US` | Dil kodu |
 | `--min-votes` | `0` | Minimum oy sayısı filtresi |
 | `--max-pages` | — | Ay başına maksimum sayfa (test için) |
+| `--log-level` | `INFO` | Log seviyesi: `DEBUG` `INFO` `WARNING` `ERROR` |
+| `--log-file` | — | Log çıktısını dosyaya da yaz |
 
 ## Çıktılar
 
 | Dosya | Açıklama |
 |---|---|
 | `tmdb_monthly_parts/*.parquet` | Aylık ham parça dosyaları |
-| `tmdb_movies_full25.csv` | Birleştirilmiş master CSV |
-| `tmdb_movies_full25.parquet` | Birleştirilmiş master Parquet |
+| `tmdb_movies_<yıllar>.csv` | Birleştirilmiş master CSV (ör. `tmdb_movies_2021-2023.csv`) |
+| `tmdb_movies_<yıllar>.parquet` | Birleştirilmiş master Parquet |
 | `tmdb_monthly_checkpoint.json` | İlerleme kaydı (resume için) |
 
 Checkpoint sayesinde kesilen çalıştırmalar kaldığı yerden devam eder.
+
+> **Not:** TMDB Discover API sayfa başına 20 sonuç, maksimum 500 sayfa (10.000 film) döner.
+> Limit aşıldığında pipeline uyarı logu yazar; daha kısa tarih aralıklarına bölmek bu durumu önler.
+
+## Testler
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/ -v
+```
+
+20 unit test — `normalize_to_df`, `month_ranges`, checkpoint (save/load/corrupt) ve `master_paths` fonksiyonlarını kapsar.
 
 ## Veri Şeması
 
