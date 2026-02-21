@@ -5,7 +5,7 @@ TMDB API'sinden film verisi çeken, aylık partisyonlama ve checkpoint desteğiy
 ## Gereksinimler
 
 ```bash
-pip install requests pandas tqdm python-dotenv python-dateutil pyarrow
+pip install -r requirements.txt
 ```
 
 ## Kurulum
