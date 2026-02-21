@@ -1,4 +1,4 @@
-# tmdb-movie-data-pipeline
+# TMDB Movie Data Pipeline
 
 TMDB API'sinden film verisi çeken, aylık partisyonlama ve checkpoint desteğiyle çalışan Python pipeline.
 
@@ -21,13 +21,13 @@ TMDB v4 Bearer token için: [TMDB API Settings](https://www.themoviedb.org/setti
 2. Pipeline'ı çalıştır:
 
 ```bash
-python movie.py --from 2021-01-01 --to 2023-12-31
+python src/movie.py --from 2021-01-01 --to 2023-12-31
 ```
 
 ## Kullanım
 
 ```
-python movie.py [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--lang dil] [--min-votes N] [--max-pages N]
+python src/movie.py [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--lang dil] [--min-votes N] [--max-pages N]
 ```
 
 | Argüman | Varsayılan | Açıklama |
